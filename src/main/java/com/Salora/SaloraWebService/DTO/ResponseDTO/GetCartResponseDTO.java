@@ -1,7 +1,7 @@
-package com.Salora.SaloraWebService.DTO.RequestDTO;
+package com.Salora.SaloraWebService.DTO.ResponseDTO;
 
+import com.Salora.SaloraWebService.Model.Cart;
 import com.Salora.SaloraWebService.Model.ProductAttribute;
-import com.Salora.SaloraWebService.Model.ProductCategory;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
@@ -13,13 +13,12 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class AddProductDTO {
+public class GetCartResponseDTO {
+    private String id;
     private String productName;
-    private String sku;
-    private Double price;
     private String description;
-    private String longDescriptions;
-    private String mediumDescriptions;
-    private ProductCategory productCategory;
+    private Double price;
+    private String imageUrl;
+    private Set<Cart> carts;
     private Set<ProductAttribute> attributes;
 }

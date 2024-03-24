@@ -9,13 +9,16 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static com.Salora.SaloraWebService.Security.Permission.ADMIN_CREATE;
+import static com.Salora.SaloraWebService.Security.Permission.*;
 
 @RequiredArgsConstructor
 public enum RolePermission {
     CUSTOMER(Collections.emptySet()),
     ADMIN(
             Set.of(
+                    ADMIN_READ,
+                    ADMIN_UPDATE,
+                    ADMIN_DELETE,
                     ADMIN_CREATE
             )
     );

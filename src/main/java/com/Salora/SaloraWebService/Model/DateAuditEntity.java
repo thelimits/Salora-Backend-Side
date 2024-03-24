@@ -31,8 +31,8 @@ public abstract class DateAuditEntity implements Serializable {
     @ApiModelProperty(hidden = true)
     private Instant updatedAt;
 
-    @JsonDeserialize(using = InstantDeserializer.class)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSZ", timezone = "Asia/Jakarta")
-    @ApiModelProperty(hidden = true)
-    private Instant activatedAt;
+//    @JsonDeserialize(using = InstantDeserializer.class)
+//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSZ", timezone = "Asia/Jakarta")
+//    @ApiModelProperty(hidden = true)
+//    private Instant activatedAt;
 }

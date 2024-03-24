@@ -20,7 +20,6 @@ import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 
 @RestController
-@CrossOrigin
 @RequestMapping(value = "/api/v1/auth/")
 public class AuthenticationController {
 

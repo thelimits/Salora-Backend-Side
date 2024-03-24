@@ -1,6 +1,5 @@
 package com.Salora.SaloraWebService.Model;
 
-import com.Salora.SaloraWebService.Model.Enums.CategoryType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
@@ -11,18 +10,29 @@ import org.hibernate.annotations.GenericGenerator;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-@Entity(name="ProductCategoryType")
-public class ProductCategoryType {
+@Entity(name="Cart")
+public class Cart extends DateAuditEntity{
     @Id
     @GeneratedValue(generator = "uuidString")
     @GenericGenerator(name = "uuidString", type = com.Salora.SaloraWebService.Utils.UUIDStringGenerator.class)
     private String id;
 
-    @Enumerated(EnumType.STRING)
-    private CategoryType type;
+    private Integer quantity;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_category_id")
+    @JoinColumn(name = "user_id")
     @JsonIgnore
-    private ProductCategory productCategory;
+    private User user;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id")
+    @JsonIgnore
+    private Product product;
+
+    @OneToOne(
+            fetch = FetchType.EAGER,
+            cascade = CascadeType.MERGE
+    )
+    @JoinColumn(name = "product_attribute_sku")
+    private ProductAttribute productAttribute;
 }

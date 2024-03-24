@@ -14,9 +14,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 
-import static com.Salora.SaloraWebService.Security.Permission.ADMIN_CREATE;
+import static com.Salora.SaloraWebService.Security.Permission.*;
+import static org.springframework.http.HttpMethod.*;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
-import static org.springframework.http.HttpMethod.POST;
 
 @Configuration
 @EnableWebSecurity
@@ -52,10 +52,17 @@ public class SecurityConfiguration {
                                 req.requestMatchers(WHITE_LIST_URL).permitAll()
                                         .requestMatchers("/products/**").permitAll()
                                         .requestMatchers("/account/**").permitAll()
-                                        .requestMatchers(POST ,"/products").hasAnyRole(RolePermission.ADMIN.name())
+                                        .requestMatchers("/cart/**").permitAll()
+                                        .requestMatchers( "/products").hasAnyRole(RolePermission.ADMIN.name())
                                         .requestMatchers(POST ,"/products").hasAnyAuthority(ADMIN_CREATE.name())
+                                        .requestMatchers(DELETE ,"/products").hasAnyAuthority(ADMIN_DELETE.name())
+                                        .requestMatchers(PUT ,"/products/product-attributes/**").hasAnyAuthority(ADMIN_UPDATE.name())
                                         .requestMatchers(POST, "/api/v1/auth/validate", "/api/v1/auth/session").hasAnyRole(RolePermission.ADMIN.name(), RolePermission.CUSTOMER.name())
                                         .requestMatchers("/account/profile").hasAnyRole(RolePermission.ADMIN.name(), RolePermission.CUSTOMER.name())
+                                        .requestMatchers("/account/customer/**").hasAnyRole(RolePermission.CUSTOMER.name())
+
+//                                       cart
+                                        .requestMatchers("/cart/**").hasAnyRole(RolePermission.CUSTOMER.name())
                                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))

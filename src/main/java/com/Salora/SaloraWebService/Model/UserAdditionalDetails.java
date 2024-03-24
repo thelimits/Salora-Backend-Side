@@ -29,6 +29,11 @@ public class UserAdditionalDetails {
     private String lastName;
 
     @Column(nullable = false)
+    private String numberPhone;
+
+    private String otherNumber;
+
+    @Column(nullable = false)
     private String address;
 
     @Column(nullable = false)
@@ -39,6 +44,9 @@ public class UserAdditionalDetails {
 
     @Column(nullable = false)
     private String district;
+
+    @Column(nullable = false)
+    private String subDistrict;
 
     @Column(nullable = false)
     private String postCode;

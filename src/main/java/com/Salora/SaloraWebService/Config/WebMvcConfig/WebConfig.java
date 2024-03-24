@@ -1,7 +1,6 @@
 package com.Salora.SaloraWebService.Config.WebMvcConfig;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
@@ -15,12 +14,16 @@ import java.util.Arrays;
 
 @Configuration
 @EnableWebMvc
-@ConfigurationProperties(prefix = "cors")
 public class WebConfig {
+    @Value("${cors.allowed.origin}")
     private String[] allowedOrigins;
 
+    public WebConfig(String[] allowedOrigins) {
+        this.allowedOrigins = allowedOrigins;
+    }
+
     @Bean
-    public FilterRegistrationBean corsFilter(){
+    public CorsFilter corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowCredentials(true);
@@ -39,11 +42,6 @@ public class WebConfig {
         ));
         configuration.setMaxAge(3600L);
         source.registerCorsConfiguration("/**", configuration);
-
-        FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean(
-                new CorsFilter(source)
-        );
-        filterRegistrationBean.setOrder(-102);
-        return filterRegistrationBean;
+        return new CorsFilter(source);
     }
 }

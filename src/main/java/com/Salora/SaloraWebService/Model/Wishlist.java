@@ -5,22 +5,28 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
-import java.util.Set;
-
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-@Entity(name="ProductCategory")
-public class ProductCategory {
+@Entity(name="Wishlist")
+public class Wishlist {
     @Id
     @GeneratedValue(generator = "uuidString")
     @GenericGenerator(name = "uuidString", type = com.Salora.SaloraWebService.Utils.UUIDStringGenerator.class)
     private String id;
 
-    private String vendor;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    @JsonIgnore
+    private User user;
 
-    @OneToMany(mappedBy = "productCategory", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<ProductCategoryType> categoryTypes;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id")
+    @JsonIgnore
+    private Product product;
+
+    @Column(updatable = false)
+    private boolean isWishlist = true;
 }
